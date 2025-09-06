@@ -8,6 +8,7 @@ import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +20,10 @@ public class ItemService {
     public void ItemSave(Item item)
     {
         template.insert(item);
+
         //itemRepository.save(item);
     }
+
     public List<Item> getAllItem()
     {
         return (List<Item>) itemRepository.findAll();

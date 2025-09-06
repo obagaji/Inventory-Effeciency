@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "item_table")
 public class Item {
@@ -26,6 +26,9 @@ public class Item {
     private String itemName;
     private Date itemExpirationDate;
     private double itemSellingPrice;
+    private Date current_date_time;
+    private Date date_time_in;
+  //  private Byte item_img;
 
 
 }

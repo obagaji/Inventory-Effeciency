@@ -1,8 +1,10 @@
 package com.jtc.Inventory.Effeciency.inventController;
 
 
+import com.jtc.Inventory.Effeciency.inventDto.AddressTable;
 import com.jtc.Inventory.Effeciency.inventService.ItemService;
 import com.jtc.Inventory.Effeciency.inventService.ItemsSoldServices;
+import com.jtc.Inventory.Effeciency.inventoryEntities.Customer;
 import com.jtc.Inventory.Effeciency.inventoryEntities.Item;
 import com.jtc.Inventory.Effeciency.inventoryEntities.ItemsSold;
 import com.jtc.Inventory.Effeciency.inventDto.SalesDetails;
@@ -46,6 +48,7 @@ public class ItemInventController {
         SalesDetails salesDetails= itemsSoldServices.findSalesDetail(salesIs);
         return ResponseEntity.ok().body(salesDetails);
     }
+
     @GetMapping("/item")
     public ResponseEntity<List<Item>>saveItem()
     {
@@ -56,12 +59,18 @@ public class ItemInventController {
         return ResponseEntity.ok().headers(header).body(listItem);
     }
     @PostMapping("/save")
-    public ResponseEntity<Void>saveItemSold()
+    public ResponseEntity<Void>saveItemSold(@RequestBody ItemsSold itemsSold)
     {
-        ItemsSold itemsSold = new ItemsSold(122,0112,
-                20,0,0,20,22, new Date(1233,2,30));
         itemsSoldServices.addToSalesItem(itemsSold);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/item/id")
+    public ResponseEntity<Item> getAllInfoAboutItem()
+    {
+        Item item = new Item();
+        // this method will get all the information about a product.
+        return ResponseEntity.ok(item);
+
     }
 
 }

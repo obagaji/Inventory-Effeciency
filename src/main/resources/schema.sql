@@ -1,13 +1,3 @@
---CREATE TABLE IF NOT EXISTS STAFF;
---CREATE TABLE IF NOT EXISTS ITEMS
---CREATE TABLE IF NOT EXISTS ITEM_CONSUMABLE
---CREATE TABLE IF NOT EXISTS CUSTOMER
---CREATE TABLE IF NOT EXISTS LOGISTIC_TABLE
---CREATE TABLE IF NOT EXISTS LOCATION_TABLE
---CREATE TABLE IF NOT EXISTS ITEM_BATCH
---CREATE TABLE IF NOT EXISTS SALES_TABLE
---CREATE TABLE IF NOT EXISTS DEPT_TABLE
---CREATE TABLE IF NOT EXISTS MONTHLY_TOTAL_SALE -->
 
 
 CREATE TABLE if not exists STAFF
@@ -26,7 +16,9 @@ CREATE TABLE if not exists ITEM_TABLE
     item_quantity_in_stock INT NOT NULL,
     item_name varchar (255) NOT NULL,
     item_expiration_date DATE NOT NULL,
-    item_selling_price INT NOT NULL
+    item_selling_price INT NOT NULL,
+    current_date_time DATE,
+    date_time_in DATE
 );
 CREATE TABLE if not exists STOCK_TABLE
 (
@@ -34,26 +26,28 @@ CREATE TABLE if not exists STOCK_TABLE
     item_Date_in DATE NOT NULL,
     total_stock INT NOT NULL,
     out_rate INT NOT NULL,
-    possible_out_stock_date Date NOT NULL,
-    location_of_item varchar(100)
+    possible_out_stock_date Date NOT NULL
 );
 CREATE TABLE if not exists DEPT_TABLE
 (
     dept_id serial primary key,
     dept_name varchar(100) NOT NULL,
-    dept_head_name varchar (100),
-    list_staff_id INT REFERENCES STAFF
+    dept_head_name varchar (100)
 );
-CREATE TABLE if not exists SALES_TABLE
+CREATE TABLE if not exists items_sold
 (
-   items_sale_id serial primary key,
-   customer INT NOT NULL references CUSTOMER (id),
+   items_sale_id  serial  primary key,
    amount_paid INT NOT NULL,
    discount_given INT,
    change_given INT,
    total_sales INT NOT NULL,
    sales_agent_id INT NOT NULL,
-   sold_date_time DATE NOT NULL
+   sold_date_time DATE NOT NULL,
+   customer_aggregate bigint,
+   FOREIGN key(customer_aggregate)references CUSTOMER (customer_id),
+   item_reference bigint,
+   FOREIGN KEY(item_reference)references ITEM_TABLE(item_product_id)
+
 );
 CREATE TABLE if not exists MONTHLY_TOTAL_SALE
 (
@@ -66,16 +60,32 @@ CREATE TABLE if not exists MONTHLY_TOTAL_SALE
 CREATE TABLE if not exists LOCATION_TABLE
 (
     location_id serial primary key,
-    item_id INT NOT NULL,
-    item_available_quantity INT,
-    date_time_in DATE NOT NULL,
-    current_date_time DATE NOT NULL
+    location_name varchar(255) not null,
+    item_total INT,
+    item_name varchar (255) not null,
+    item_Date_in DATE NOT NULL,
+    out_rate INT NOT NULL,
+    possible_out_stock_date Date NOT NULL
+
+);
+CREATE TABLE IF NOT EXISTS ORDERED_ITEM
+(
+    quantity INT ,
+    time_ordered DATE ,
+    country varchar(200),
+    city varchar(200),
+    street varchar(255),
+    items_sold bigint not null
+
 );
 CREATE TABLE if not exists CUSTOMER
 (
-    name varchar,
+    customer_id IDENTITY PRIMARY key,
     customer_email varchar(200),
-    phone varchar (100) not null,
+    customer_age_range varchar(50),
     total_purchases INT,
-    recent_purchases INT
+    most_recent_purchases INT
 )
+
+   -- name varchar(200), -->
+  --  phone varchar (100) not null,
