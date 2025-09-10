@@ -14,7 +14,6 @@ import java.util.Date;
 @Component
 @Getter
 @Setter
-//@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "item_table")
 public class Item {
@@ -28,6 +27,10 @@ public class Item {
     private double itemSellingPrice;
     private Date current_date_time;
     private Date date_time_in;
+    // both tables are one to one reference to the this Item table
+    private StockTable stockTable;
+    private MonthlyTotalSale monthTotal;
+    private Category category;
   //  private Byte item_img;
 
 

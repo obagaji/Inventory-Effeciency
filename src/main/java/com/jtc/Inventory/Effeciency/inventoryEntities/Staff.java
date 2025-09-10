@@ -12,18 +12,25 @@ import org.springframework.stereotype.Component;
 @Component
 @Setter
 @Getter
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class Staff {
 
     @Id
     Integer staffId;
-    String staffName;
-    String staffEmail;
+    String name;
+    String email;
     String sex;
     @Embedded.Nullable
     AddressTable address;
-    StaffRole role;
+  //  StaffRole role;
 
+    public Staff(String staffName,String staffEmail,String sex,AddressTable address)
+    {
+        this.name=staffName;
+        this.email=staffEmail;
+        this.sex=sex;
+        this.address=address;
+    }
 
 }

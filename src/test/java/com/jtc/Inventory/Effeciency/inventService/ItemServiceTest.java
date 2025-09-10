@@ -38,7 +38,5 @@ public class ItemServiceTest {
         assertThat(itemRepository.findAll()).hasSize(5);
 
 
-
-
     }
 }
